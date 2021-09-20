@@ -1,3 +1,3 @@
-<div id="mapsid" class="container">
+<div id="mapsid">
     
 </div>
