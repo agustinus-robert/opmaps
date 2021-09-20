@@ -2,13 +2,25 @@ var cobaMap = L.map('mapsid').setView([-7.5590, 110.8217], 14);
 var arr_new = [];
 var push_hasil = [];
 var hasil_data = [];
+var tampung_tulisan = [];
 var polyline, polygon, reactangle;
+
+var polyline_tulis = new L.Polyline([]).addTo(cobaMap);
+
 
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(cobaMap);
 
+
+cobaMap.on('click', function(event) {
+    L.marker(event.latlng).addTo(cobaMap);
+    
+   
+    polyline_tulis.addLatLng(event.latlng);
+    tamping_tulisan.push(event.latlng); 
+});
 // ============= polyline ====================
 var latlngs = [
     [-7.5533, 110.7993],
