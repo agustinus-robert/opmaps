@@ -5,6 +5,8 @@
 
 #refreshButton {
   position: absolute;
+  background-color:rgba(201, 76, 76, 0.3);
+  width:300px;
   top: 20px;
   right: 20px;
   padding: 10px;

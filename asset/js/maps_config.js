@@ -1,10 +1,9 @@
-//angka negatif lat -6.812/110.039
 var cobaMap = L.map('mapsid').setView([-7.5590, 110.8217], 14);
 var arr_new = [];
 var push_hasil = [];
 var hasil_data = [];
-var polyline;
-var polygon;
+var polyline, polygon, reactangle;
+
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -21,9 +20,20 @@ var latlngs = [
     [-7.5533, 110.7993]
 ];
 
+function markerOnClick(e){
+    var popup = L.popup()
+    .setLatLng(e.latlng)
+    .setContent('<p>Posisi Latitude dan longitude : '+e.latlng+'</p>')
+    .openOn(cobaMap);
+}
+
 $('#poly_line').click(function(){
     if(window.polygon){
      window.cobaMap.removeLayer(window.polygon);
+    } 
+    
+    if(window.rectangle){
+        window.cobaMap.removeLayer(window.rectangle);
     }
     
     polyline = L.polyline(latlngs, {color: 'red'}).addTo(cobaMap);
@@ -36,7 +46,7 @@ $('#poly_line').click(function(){
       push_hasil = arr_new[0].toString();
       hasil_data =  push_hasil.split(',');
 
-      L.marker([hasil_data[0], hasil_data[1]]).addTo(cobaMap);
+      L.marker([hasil_data[0], hasil_data[1]]).on('click', markerOnClick).addTo(cobaMap);
     })
     
 });
@@ -48,6 +58,11 @@ $('#poly_gon').click(function(){
     if(window.polyline){
         window.cobaMap.removeLayer(window.polyline);
     }
+    
+    if(window.rectangle){
+        window.cobaMap.removeLayer(window.rectangle);
+    }
+    
     polygon = L.polygon(latlngs, {color: 'blue'}).addTo(cobaMap);
 
     cobaMap.fitBounds(polygon.getBounds());
@@ -57,6 +72,28 @@ $('#poly_gon').click(function(){
       push_hasil = arr_new[0].toString();
       hasil_data =  push_hasil.split(',');
 
-      L.marker([hasil_data[0], hasil_data[1]]).addTo(cobaMap);
+      L.marker([hasil_data[0], hasil_data[1]]).on('click', markerOnClick).addTo(cobaMap);
+    })
+});
+
+$('#rect_angle').click(function(){
+   if(window.polyline){
+        window.cobaMap.removeLayer(window.polyline);
+    } 
+    
+    if(window.polygon){
+         window.cobaMap.removeLayer(window.polygon);
+    }
+    
+    rectangle = L.rectangle(latlngs, {color: 'green'}).addTo(cobaMap);
+
+    cobaMap.fitBounds(rectangle.getBounds());
+
+    latlngs.forEach(function(val, key) {
+      arr_new = [val];
+      push_hasil = arr_new[0].toString();
+      hasil_data =  push_hasil.split(',');
+
+      L.marker([hasil_data[0], hasil_data[1]]).on('click', markerOnClick).addTo(cobaMap);
     })
 });
