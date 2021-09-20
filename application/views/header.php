@@ -9,6 +9,9 @@
   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
   crossorigin=""></script>
   
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo base_url(); ?>asset/css/style.css"> 
+      <script type = 'text/javascript' src = "<?php echo base_url(); ?>asset/js/maps_config.js"></script> 
+         
         <title>Maps</title>
     </head>
     
