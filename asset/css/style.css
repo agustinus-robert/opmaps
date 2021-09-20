@@ -3,6 +3,14 @@
     height:640px;
 }
 
+#refreshButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  z-index: 400;
+}
+
 .container-fluid{
     padding:0px;
     margin:0px;
