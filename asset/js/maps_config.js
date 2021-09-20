@@ -16,14 +16,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 //tulis maps
 cobaMap.on('click', function(event) {
-  L.marker(event.latlng).addTo(cobaMap);
+ var marker = L.marker(event.latlng).addTo(cobaMap);
+polyline_tulis.addLatLng(event.latlng);
+   tampung_tulisan.push(event.latlng); 
 
-
-  polyline_tulis.addLatLng(event.latlng);
-     tampung_tulisan.push(event.latlng); 
-
-     console.log(tampung_tulisan);
-  });
+   console.log(tampung_tulisan);
+});
 
 // ============= polyline ====================
 var latlngs = [

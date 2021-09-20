@@ -18,8 +18,8 @@
            
                 <td><button id="rect_angle" class="btn btn-primary">Rectangle</button></td>
             </tr>
-            
-            
+      
+           
         </tbody>
     </table>
 </div>
