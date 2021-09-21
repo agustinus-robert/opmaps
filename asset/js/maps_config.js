@@ -1,11 +1,13 @@
-var cobaMap = L.map('mapsid').setView([-7.5590, 110.8217], 14);
+var cobaMap = L.map('mapsid', {drawControl: true}).setView([-7.5590, 110.8217], 14);
+
+     
 var arr_new = [];
 var push_hasil = [];
 var hasil_data = [];
 var tampung_tulisan = [];
 var polyline, polygon, reactangle;
 
-var polyline_tulis = new L.Polyline([]).addTo(cobaMap);
+//var polyline_tulis = new L.Polyline([]).addTo(cobaMap);
 
 
 
@@ -15,13 +17,13 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 //tulis maps
-cobaMap.on('click', function(event) {
- var marker = L.marker(event.latlng).addTo(cobaMap);
-polyline_tulis.addLatLng(event.latlng);
-   tampung_tulisan.push(event.latlng); 
-
-   console.log(tampung_tulisan);
-});
+//cobaMap.on('click', function(event) {
+// var marker = L.marker(event.latlng).addTo(cobaMap);
+//polyline_tulis.addLatLng(event.latlng);
+//   tampung_tulisan.push(event.latlng); 
+//
+//   console.log(tampung_tulisan);
+//});
 
 // ============= polyline ====================
 var latlngs = [
