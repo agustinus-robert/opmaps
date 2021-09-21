@@ -109,6 +109,19 @@ for(var i = 0; i < wilayah.length; i++){
 }
 
 
+$('#save').click(function(){
+  
+  $.ajax({
+    method : "POST",
+    url: urls,
+    data: {'text-data' : data_show.replace('undefined','')},
+    success: function(data){
+      console.log(data);
+    }
+  });
+});
+
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(cobaMap);

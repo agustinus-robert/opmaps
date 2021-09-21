@@ -8,4 +8,14 @@ class Opmaps extends CI_Controller {
         $this->load->view('mpv/index');
         $this->load->view('footer');
     }
+    
+    public function save_data(){
+        $this->load->model('model_maps','mp');
+        
+        $data = [
+            'data-maps' =>  $this->input->post('text-data')
+        ];
+        
+        $this->mp->insert($data);
+    }
 }

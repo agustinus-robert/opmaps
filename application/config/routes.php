@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'opmaps';
 
 //$route['/'] = 'opmaps/index';
+$route['saved'] = 'opmaps/save_data';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
