@@ -116,7 +116,11 @@ $('#save').click(function(){
     url: urls,
     data: {'text-data' : data_show.replace('undefined','')},
     success: function(data){
-      console.log(data);
+      if(data == "ok"){
+          alert("data telah masuk");
+      } else {
+          alert("data gagal masuk");
+      }
     }
   });
 });
