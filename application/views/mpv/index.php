@@ -13,9 +13,13 @@
         <tbody>
             <tr>
                 <td> <button id="poly_line" class="btn btn-primary">Polyline</button></td>
+            </tr>
             
+            <tr>
                 <td> <button id="poly_gon" class="btn btn-primary">Polygon</button></td>
+            </tr>
            
+            <tr>
                 <td><button id="rect_angle" class="btn btn-primary">Rectangle</button></td>
             </tr>
       

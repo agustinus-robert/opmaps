@@ -5,12 +5,17 @@
 
 #refreshButton {
   position: absolute;
-  background-color:rgba(201, 76, 76, 0.3);
-  width:400px;
+  background-color:white;
+  width:130px;
   top: 20px;
   right: 20px;
   padding: 10px;
   z-index: 400;
+  box-shadow: 1px 1px 1px 1px;
+}
+
+#refreshButton button{
+    width:100px;
 }
 
 .container-fluid{
