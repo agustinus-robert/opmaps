@@ -12,10 +12,10 @@ class Model_maps extends CI_Model {
         
         if($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
-            echo "ok";
+            echo "salah";
         } else {
             $this->db->trans_commit();
-            echo "salah";
+            echo "ok";
         }
     }
 }
