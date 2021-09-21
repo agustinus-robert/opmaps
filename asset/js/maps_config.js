@@ -29,17 +29,84 @@ drawnItems = L.featureGroup().addTo(cobaMap);
     cobaMap.on(L.Draw.Event.CREATED, function (event) {
         var layer = event.layer;
 
+      
+        var arr_geometry = [];
+        for (var i = 0; i < layer._latlngs.length; i++) {
+           
+            arr_geometry[i] = [layer._latlngs[i].lat,layer._latlngs[i].lng];
+            
+            
+            
+           console.log(arr_geometry);
+        }
+        
+//        console.log(lines);
+       
+       
+        console.log(layer._latlngs);
+        
+
         drawnItems.addLayer(layer);
+        
     });
+    
+   
      
 var arr_new = [];
 var push_hasil = [];
 var hasil_data = [];
 var tampung_tulisan = [];
 var polyline, polygon, reactangle;
+  var lines = [];
+var data_show;
 
 //var polyline_tulis = new L.Polyline([]).addTo(cobaMap);
 
+ var wilayah = [{
+    "type": "Feature",
+    "properties": {"tipe": "ls"},
+    "geometry": {
+        "type": "LineString",
+        "coordinates": [
+            [110.8341, -7.5860],
+            [110.8368, -7.5778],
+            [110.8278, -7.5694],
+            [110.8166, -7.5606],
+            [110.8121, -7.5580],
+            [110.7993, -7.5533]
+        ]
+    }
+}, {
+    "type": "Feature",
+    "properties": {"party": "pl"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+           [110.7935, -7.5809],
+           [110.7935, -7.5601],
+           [110.8204, -7.5601],
+           [110.8204, -7.5809]
+        ]]
+    }
+}];
+
+L.geoJSON(wilayah, {
+    style: function(feature) {
+        switch (feature.properties.tipe) {
+            case 'ls': return {color: "green"};
+            case 'pl':   return {color: "purple"};
+        }
+    }
+}).addTo(cobaMap);
+
+console.log(wilayah);
+for(var i = 0; i < wilayah.length; i++){
+    //document.getElementById('#tampil_data').innerText;
+    
+    data_show += JSON.stringify(wilayah[i]);
+    $("#tampil_data").text(data_show.replace('undefined',''));
+   // console.log();
+}
 
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

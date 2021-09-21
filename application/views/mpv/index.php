@@ -1,3 +1,20 @@
+<div class="modal" id="staticBackdrop" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Data Geocoding</h5>
+      
+      </div>
+      <div class="modal-body">
+          <div id="tampil_data">
+              
+          </div>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
 <div id="mapsid">
     
 </div>
@@ -22,8 +39,10 @@
             <tr>
                 <td><button id="rect_angle" class="btn btn-primary">Rectangle</button></td>
             </tr>
-      
-           
+            
+            <tr>
+                <td><button id="geo_check" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cek GeoCoding</button></td>
+            </tr>
         </tbody>
     </table>
 </div>
