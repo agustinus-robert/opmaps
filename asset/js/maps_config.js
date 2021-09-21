@@ -78,7 +78,7 @@ var data_show;
     }
 }, {
     "type": "Feature",
-    "properties": {"party": "pl"},
+    "properties": {"tipe": "pl"},
     "geometry": {
         "type": "Polygon",
         "coordinates": [[
