@@ -80,19 +80,6 @@ drawnItems = L.featureGroup().addTo(cobaMap);
          }
       
         $('#tampil_data').text(arr_hasil);
-       // var data = arr_hasil.filter(s => s.replace(/\s+/g, '').length !== 0);
-       
-        // $("#tampil_data").text(arr_hasil.replace(/\s/g, ''));
-//         
-        
-        //console.log(arr_data);
-        
-//        console.log(lines);
-       
-       
-      
-        
-
         drawnItems.addLayer(layer);
         
     });
