@@ -78,7 +78,7 @@ drawnItems = L.featureGroup().addTo(cobaMap);
                
              }    
          }
-      
+        
         $('#tampil_data').text(arr_hasil);
         drawnItems.addLayer(layer);
         
@@ -150,7 +150,7 @@ $('#save').click(function(){
   $.ajax({
     method : "POST",
     url: urls,
-    data: {'text-data' : data_show.replace('undefined','')},
+    data: {'text-data' : arr_hasil},
     success: function(data){
       if(data == "ok"){
           alert("data telah masuk");

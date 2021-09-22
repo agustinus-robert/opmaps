@@ -12,8 +12,15 @@ class Opmaps extends CI_Controller {
     public function save_data(){
         $this->load->model('model_maps','mp');
         
+        $hasil = '';
+        foreach($this->input->post('text-data') as $k => $v){
+            $hasil .= str_replace(' ','', $v).','; 
+        }
+        
+        $hasil = rtrim($hasil,',');
+        
         $data = [
-            'data-maps' =>  $this->input->post('text-data')
+            'data-maps' =>  $hasil
         ];
         
         $this->mp->insert($data);
