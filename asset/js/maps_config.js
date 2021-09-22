@@ -26,24 +26,71 @@ drawnItems = L.featureGroup().addTo(cobaMap);
         }
     }));
 
+    var arr_tambah = 0;
+    var koor_tambah = 0;
+    var arr_hasil = [];
+    var arr_data = [];
     cobaMap.on(L.Draw.Event.CREATED, function (event) {
         var layer = event.layer;
 
       
-        var arr_geometry = [];
-        for (var i = 0; i < layer._latlngs.length; i++) {
-           
-            arr_geometry[i] = [layer._latlngs[i].lat,layer._latlngs[i].lng];
-            
-            
-            
-           console.log(arr_geometry);
-        }
+         arr_data[arr_tambah++] = event;
+         
+         var koordinat_tulis = [];
+         for(var j = 0; j < arr_data.length; j++){
+            if(arr_data[j].layerType == "polyline"){
+                
+                 arr_hasil[j] = '{"type" : "Feature","geometry" : { "type" : "LineString", "coordinates" : [';
+                                
+                for(const latls of arr_data[j].layer._latlngs){
+                    koordinat_tulis =  "["+latls.lng+','+latls.lat+"],";
+                    
+                    arr_hasil[j] += koordinat_tulis;
+                }
+                
+                arr_hasil[j] = arr_hasil[j].replace(/(^,)|(,$)/g, "");
+               
+                arr_hasil[j] += ']}}';
+                
+              
+
+       
+             } else if(arr_data[j].layerType == "polygon"){
+                  arr_hasil[j] = '{"type" : "Feature","geometry" : { "type" : "polygon", "coordinates" : [';
+                  
+                  
+                  
+                for(const latls of arr_data[j].layer._latlngs){
+                    
+                    for(const dptlt of latls){
+                        
+                        koordinat_tulis =  "[["+dptlt.lng+','+dptlt.lat+"]],";
+                        arr_hasil[j] += koordinat_tulis;
+                    }
+                    
+                    
+                }
+                
+                arr_hasil[j] = arr_hasil[j].replace(/(^,)|(,$)/g, "");
+               
+                arr_hasil[j] += ']}}';
+                
+               
+             }    
+         }
+      
+        $('#tampil_data').text(arr_hasil);
+       // var data = arr_hasil.filter(s => s.replace(/\s+/g, '').length !== 0);
+       
+        // $("#tampil_data").text(arr_hasil.replace(/\s/g, ''));
+//         
+        
+        //console.log(arr_data);
         
 //        console.log(lines);
        
        
-        console.log(layer._latlngs);
+      
         
 
         drawnItems.addLayer(layer);
@@ -90,6 +137,8 @@ var data_show;
     }
 }];
 
+console.log(wilayah);
+
 L.geoJSON(wilayah, {
     style: function(feature) {
         switch (feature.properties.tipe) {
@@ -99,12 +148,12 @@ L.geoJSON(wilayah, {
     }
 }).addTo(cobaMap);
 
-console.log(wilayah);
+//console.log(wilayah);
 for(var i = 0; i < wilayah.length; i++){
     //document.getElementById('#tampil_data').innerText;
     
     data_show += JSON.stringify(wilayah[i]);
-    $("#tampil_data").text(data_show.replace('undefined',''));
+   // $("#tampil_data").text(data_show.replace('undefined',''));
    // console.log();
 }
 
