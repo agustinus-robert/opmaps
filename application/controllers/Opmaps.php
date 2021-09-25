@@ -99,7 +99,7 @@ class Opmaps extends CI_Controller {
     
     public function get_data_statis(){
         $this->db->select("td.id_leaflet as id, td.nama_jalan as nama, td.jumlah as jumlah, tk.id_map as map_id, tk.tipe as tipe, tk.koordinat as coordinates");
-        $this->db->join("tabel_koordinat tk",'tk.id_map=td.id','left');
+        $this->db->join("tabel_data_has_koordinat tk",'tk.id_map=td.id','left');
         
         $q = $this->db->get('tabel_data td');
         

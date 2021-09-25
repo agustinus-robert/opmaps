@@ -50,7 +50,7 @@ class Model_maps extends CI_Model {
                       'koordinat' => $koordinat
                     ];
 
-                    $this->db->insert('tabel_koordinat', $data_detail_koordinat);
+                    $this->db->insert('tabel_data_has_koordinat', $data_detail_koordinat);
                 }
        
             $this->db->trans_commit();
