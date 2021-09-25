@@ -46,6 +46,7 @@ class Model_maps extends CI_Model {
 
                     $data_detail_koordinat = [
                       'id_map' => $id_data,
+                      'tipe' =>  'Polygon',
                       'koordinat' => $koordinat
                     ];
 

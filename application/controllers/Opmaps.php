@@ -45,6 +45,8 @@ class Opmaps extends CI_Controller {
             $hasil .= str_replace(' ','', $v); 
         }
         
+        $hasil = rtrim($hasil,',');
+        
         $nama = $this->input->post('nama_jalan');
         $id_leaflet = $this->input->post('id_leflet');
         $jumlah = $this->input->post('jumlah');
@@ -94,7 +96,43 @@ class Opmaps extends CI_Controller {
         echo json_encode($geojson);
     }
     
+    
     public function get_data_statis(){
+        $this->db->select("td.id_leaflet as id, td.nama_jalan as nama, td.jumlah as jumlah, tk.id_map as map_id, tk.tipe as tipe, tk.koordinat as coordinates");
+        $this->db->join("tabel_koordinat tk",'tk.id_map=td.id','left');
         
+        $q = $this->db->get('tabel_data td');
+        
+        $query = $q->result_array();
+
+        $geojson = [
+            'type' => 'FeatureCollection',
+            'features' => []
+        ];
+
+        if (count($query) > 0) {
+            foreach ($query as $k => $v) :
+                $feature = [
+                    'type' => 'Feature',
+                    'properties' => [
+                        'id' => $v['id'],
+                        'nama' => $v['nama'],
+                        'jumlah' => $v['jumlah']
+                    ],
+                    'geometry' => [
+                        'type' => $v['tipe'],
+                        'coordinates' => json_decode($v['coordinates'], true),
+                    ]
+                ];
+                array_push($geojson['features'], $feature);
+            endforeach;
+        } else {
+            $geojson = [
+                'type' => 'FeatureCollection',
+                'features' => []
+            ];
+        }
+         //json_encode($geojson);
+        echo json_encode($geojson);
     }
 }

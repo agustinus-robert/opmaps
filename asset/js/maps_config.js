@@ -67,7 +67,7 @@ drawnItems = L.featureGroup().addTo(cobaMap);
                  // arr_hasil[j] = '{"type":"Feature","properties":{"id":'+layer._leaflet_id+'},"geometry":{"type":"Polygon","coordinates":[[';
                   
                   
-                  
+                arr_hasil[j] += "[[";
                 for(const latls of arr_data[j].layer._latlngs){
                     
                     for(const dptlt of latls){
@@ -76,10 +76,18 @@ drawnItems = L.featureGroup().addTo(cobaMap);
                         arr_hasil[j] += koordinat_tulis;
                     }
                     
+//                    for(const dptlt of latls){
+//                        
+//                        koordinat_tulis =  "{"+dptlt.lng+','+dptlt.lat+"},";
+//                        arr_hasil[j] += koordinat_tulis;
+//                    }
+                    
                     
                 }
                 
                 arr_hasil[j] = arr_hasil[j].replace(/(^,)|(,$)/g, "").replace('undefined','');
+                arr_hasil[j] += "]]";
+                
                
               /// arr_hasil[j] = L.polyline(JSON.parse("["+arr_hasil[j].replace('undefined', '')+"]")).toGeoJSON();
                
@@ -137,7 +145,7 @@ drawnItems = L.featureGroup().addTo(cobaMap);
         }
     }
     
-    var geojsonLayer = new L.GeoJSON.AJAX('geo_dt', {
+    var geojsonLayer = new L.GeoJSON.AJAX('get_stat_dt', {
         onEachFeature : fiturMap,
         style : mapstyle,
     }).addTo(cobaMap);
