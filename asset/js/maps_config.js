@@ -64,7 +64,7 @@ drawnItems = L.featureGroup().addTo(cobaMap);
              } else if(arr_data[j].layerType == "polygon"){
                  var id = Math.floor((Math.random() * 500) + 1);
                  layer._leaflet_id = id;
-                  arr_hasil[j] = '{"type":"Feature","properties":{"id":'+layer._leaflet_id+'},"geometry":{"type":"Polygon","coordinates":[[';
+                 // arr_hasil[j] = '{"type":"Feature","properties":{"id":'+layer._leaflet_id+'},"geometry":{"type":"Polygon","coordinates":[[';
                   
                   
                   
@@ -79,11 +79,11 @@ drawnItems = L.featureGroup().addTo(cobaMap);
                     
                 }
                 
-                arr_hasil[j] = arr_hasil[j].replace(/(^,)|(,$)/g, "");
+                arr_hasil[j] = arr_hasil[j].replace(/(^,)|(,$)/g, "").replace('undefined','');
                
               /// arr_hasil[j] = L.polyline(JSON.parse("["+arr_hasil[j].replace('undefined', '')+"]")).toGeoJSON();
                
-                arr_hasil[j] += ']]}}';
+               // arr_hasil[j] += ']]}}';
                 
                
              }    
@@ -225,19 +225,21 @@ $('#save').click(function(){
   
   var nama = $('#nama').val();
   var jumlah = $('#jumlah').val();
+  var id_leflet = Math.floor((Math.random() * 500) + 1);
   $.ajax({
     method : "POST",
     url: urls,
     data: {
         'text-data' : arr_hasil,
         'nama_jalan' : nama,
-        'jumlah' : jumlah
+        'jumlah' : jumlah,
+        'id_leflet' : id_leflet
     },
     success: function(data){
       if(data == "ok"){
           alert("data telah masuk");
       } else {
-          alert("data gagal masuk");
+          alert(data);
       }
     }
   });

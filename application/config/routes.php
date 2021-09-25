@@ -55,6 +55,7 @@ $route['default_controller'] = 'opmaps';
 $route['saved'] = 'opmaps/save_data';
 $route['random'] = 'opmaps/index_random';
 $route['geo_dt'] = 'opmaps/geo_data';
-        
+$route['masuk_data2'] = 'opmaps/save_data2';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -37,6 +37,30 @@ class Opmaps extends CI_Controller {
         $this->mp->insert($data);
     }
     
+    public function save_data2(){
+        $this->load->model('model_maps','mp');
+        
+        $hasil = '';
+        foreach($this->input->post('text-data') as $k => $v){
+            $hasil .= str_replace(' ','', $v); 
+        }
+        
+        $nama = $this->input->post('nama_jalan');
+        $id_leaflet = $this->input->post('id_leflet');
+        $jumlah = $this->input->post('jumlah');
+        
+        $data = [
+            'id_leaflet' =>  $id_leaflet,
+            'nama_jalan' => $nama,
+            'jumlah' => $jumlah
+        ];
+        
+        $this->mp->insert_data_koordinat($data, $hasil);
+           
+        
+        
+    }
+    
     public function geo_data()
     {
         $q = "
@@ -68,5 +92,9 @@ class Opmaps extends CI_Controller {
             ];
         }
         echo json_encode($geojson);
+    }
+    
+    public function get_data_statis(){
+        
     }
 }
