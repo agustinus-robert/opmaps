@@ -9,6 +9,12 @@ class Opmaps extends CI_Controller {
         $this->load->view('footer');
     }
     
+    public function index_random(){
+        $this->load->view('header');
+        $this->load->view('mpv/random');
+        $this->load->view('footer');
+    }
+    
     public function save_data(){
         $this->load->model('model_maps','mp');
         
@@ -17,12 +23,50 @@ class Opmaps extends CI_Controller {
             $hasil .= str_replace(' ','', $v).','; 
         }
         
+        $nama = $this->input->post('nama_jalan');
+        $jumlah = $this->input->post('jumlah');
+        
         $hasil = rtrim($hasil,',');
         
         $data = [
-            'data-maps' =>  $hasil
+            'data_maps' =>  $hasil,
+            'nama_jalan' => $nama,
+            'jumlah' => $jumlah
         ];
         
         $this->mp->insert($data);
+    }
+    
+    public function geo_data()
+    {
+        $q = "
+			select 
+			data_maps,nama_jalan,jumlah
+            from tabel_maps
+		";
+
+        $query = $this->db->query($q)->result_array();
+
+        $geojson = [
+            'type' => 'FeatureCollection',
+            'features' => []
+        ];
+
+        if (count($query) > 0) {
+            foreach ($query as $k => $v) {
+                $feature[0] = json_decode($v['data_maps']);  
+                
+                
+                $feature[0]->properties = ['id'=> $feature[0]->properties->id, 'nama_jalan' => $v['nama_jalan'], 'jumlah' => $v['jumlah']];
+            }
+            
+            $geojson['features'] = $feature;
+        } else {
+            $geojson = [
+                'type' => 'FeatureCollection',
+                'features' => []
+            ];
+        }
+        echo json_encode($geojson);
     }
 }

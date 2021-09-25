@@ -53,6 +53,8 @@ $route['default_controller'] = 'opmaps';
 
 //$route['/'] = 'opmaps/index';
 $route['saved'] = 'opmaps/save_data';
-
+$route['random'] = 'opmaps/index_random';
+$route['geo_dt'] = 'opmaps/geo_data';
+        
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

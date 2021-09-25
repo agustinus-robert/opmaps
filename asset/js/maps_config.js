@@ -22,7 +22,12 @@ drawnItems = L.featureGroup().addTo(cobaMap);
             polygon: {
                 allowIntersection: false,
                 showArea: true
-            }
+            },
+             polyline: false,
+             marker: false,
+             circle: false,
+             rectangle: false,
+             circlemarker: false
         }
     }));
 
@@ -40,23 +45,26 @@ drawnItems = L.featureGroup().addTo(cobaMap);
          for(var j = 0; j < arr_data.length; j++){
             if(arr_data[j].layerType == "polyline"){
                 
-                 arr_hasil[j] = '{"type" : "Feature","geometry" : { "type" : "LineString", "coordinates" : [';
+                arr_hasil[j] = '{"type" : "Feature","geometry" : { "type" : "LineString", "coordinates" : [';
                                 
                 for(const latls of arr_data[j].layer._latlngs){
                     koordinat_tulis =  "["+latls.lng+','+latls.lat+"],";
                     
                     arr_hasil[j] += koordinat_tulis;
                 }
-                
+                //arr_hasil[j] = arr_hasil[j].replace('undefined', '');
                 arr_hasil[j] = arr_hasil[j].replace(/(^,)|(,$)/g, "");
-               
-                arr_hasil[j] += ']}}';
+                //console.log(L.polyline(arr_hasil).toGeoJSON(12));
+               // arr_hasil[j] = L.polyline(JSON.parse("["+arr_hasil[j].replace('undefined', '')+"]")).toGeoJSON();
+              arr_hasil[j] += ']}}';
                 
               
 
        
              } else if(arr_data[j].layerType == "polygon"){
-                  arr_hasil[j] = '{"type" : "Feature","geometry" : { "type" : "polygon", "coordinates" : [';
+                 var id = Math.floor((Math.random() * 500) + 1);
+                 layer._leaflet_id = id;
+                  arr_hasil[j] = '{"type":"Feature","properties":{"id":'+layer._leaflet_id+'},"geometry":{"type":"Polygon","coordinates":[[';
                   
                   
                   
@@ -64,7 +72,7 @@ drawnItems = L.featureGroup().addTo(cobaMap);
                     
                     for(const dptlt of latls){
                         
-                        koordinat_tulis =  "[["+dptlt.lng+','+dptlt.lat+"]],";
+                        koordinat_tulis =  "["+dptlt.lng+','+dptlt.lat+"],";
                         arr_hasil[j] += koordinat_tulis;
                     }
                     
@@ -73,18 +81,69 @@ drawnItems = L.featureGroup().addTo(cobaMap);
                 
                 arr_hasil[j] = arr_hasil[j].replace(/(^,)|(,$)/g, "");
                
-                arr_hasil[j] += ']}}';
+              /// arr_hasil[j] = L.polyline(JSON.parse("["+arr_hasil[j].replace('undefined', '')+"]")).toGeoJSON();
+               
+                arr_hasil[j] += ']]}}';
                 
                
              }    
          }
         
+     
         $('#tampil_data').text(arr_hasil);
         drawnItems.addLayer(layer);
+       
+       //  featureGroup.addLayer(e.layer);
         
     });
+
+//    var geojsonLayer = new L.GeoJSON.AJAX('geo_dt', {
+//        'onEachFeature': function (feature, layer) {
+//            layer.bindPopup(feature.properties.nama_jalan);
+//                     
+//            
+//        },
+//        style: function (feature){
+//            if(feature.properties.jumlah === "3"){
+//                return {color: "green"};
+//            }
+//        }
+//    }).addTo(cobaMap);
+
+    function fiturMap(feature, layer){
+         layer.bindPopup(feature.properties.nama_jalan);
+    }
     
-   
+    function mapstyle(feature){
+        if(feature.properties.jumlah === "3"){
+           return {color: "green"};
+        }
+    }
+    
+    var geojsonLayer = new L.GeoJSON.AJAX('geo_dt', {
+        onEachFeature : fiturMap,
+        style : mapstyle 
+    }).addTo(cobaMap);
+    
+  
+     
+
+     
+//    $.ajax({
+//        type: "GET",
+//        url: myd,
+//        dataType: "text",
+//        success: function(response){
+//            console.log(response);
+//        },error: function(xml, error) {
+//            console.log(error);
+//         }
+//    });
+    // console.log(geojsonLayer);
+//   geojsonLayer.on('data:loaded', function(){
+//       
+//        geojsonLayer.addTo(cobaMap);
+//    });
      
 var arr_new = [];
 var push_hasil = [];
@@ -124,16 +183,16 @@ var data_show;
     }
 }];
 
-console.log(wilayah);
+//console.log(wilayah);
 
-L.geoJSON(wilayah, {
-    style: function(feature) {
-        switch (feature.properties.tipe) {
-            case 'ls': return {color: "green"};
-            case 'pl':   return {color: "purple"};
-        }
-    }
-}).addTo(cobaMap);
+//L.geoJSON(wilayah, {
+//    style: function(feature) {
+//        switch (feature.properties.tipe) {
+//            case 'ls': return {color: "green"};
+//            case 'pl':   return {color: "purple"};
+//        }
+//    }
+//}).addTo(cobaMap);
 
 //console.log(wilayah);
 for(var i = 0; i < wilayah.length; i++){
@@ -147,10 +206,16 @@ for(var i = 0; i < wilayah.length; i++){
 
 $('#save').click(function(){
   
+  var nama = $('#nama').val();
+  var jumlah = $('#jumlah').val();
   $.ajax({
     method : "POST",
     url: urls,
-    data: {'text-data' : arr_hasil},
+    data: {
+        'text-data' : arr_hasil,
+        'nama_jalan' : nama,
+        'jumlah' : jumlah
+    },
     success: function(data){
       if(data == "ok"){
           alert("data telah masuk");

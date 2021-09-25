@@ -6,7 +6,11 @@
         
       </div>
       <div class="modal-body">
-          <div id="tampil_data"></div>
+          <input class="form-control" id="nama" />
+          <br />
+          <input class="form-control" id="jumlah" />
+          <br />
+          <textarea class="form-control" id="tampil_data"></textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="save">Save Data</button>
