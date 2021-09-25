@@ -112,6 +112,23 @@ drawnItems = L.featureGroup().addTo(cobaMap);
 
     function fiturMap(feature, layer){
          layer.bindPopup(feature.properties.nama_jalan);
+         
+         layer.on({
+            mouseover: function(e){
+                e.target.setStyle({
+                    fillOpacity: 0.8,
+                    dashArray: '',
+                    weight: 2,
+                    opacity: 1
+                });
+            }, 
+            mouseout: function(e){
+                geojsonLayer.resetStyle(e.target);
+            },
+            click : function(e){
+                alert(e.latlng);
+            }
+         });
     }
     
     function mapstyle(feature){
@@ -122,7 +139,7 @@ drawnItems = L.featureGroup().addTo(cobaMap);
     
     var geojsonLayer = new L.GeoJSON.AJAX('geo_dt', {
         onEachFeature : fiturMap,
-        style : mapstyle 
+        style : mapstyle,
     }).addTo(cobaMap);
     
   
